@@ -2,7 +2,7 @@
 
 import collections
 import itertools
-import linecache
+import loctraceback.linecache as linecache
 import sys
 
 import tempfile
@@ -75,7 +75,7 @@ def deparse_text(co, name, last_i):
         if extractInfo:
             text.append("    instruction: %s" % (nodeInfo.node))
             text.append(extractInfo.selectedLine)
-            text.append(extractInfo.markerLine)
+            text.append(extractInfo.markerLine + "\n")
         pass
     return text
 
@@ -298,6 +298,11 @@ class FrameSummary:
       of code that was running when the frame was captured.
     - :attr:`locals` Either None if locals were not supplied, or a dict
       mapping the name to the repr() of the variable.
+    - :attr:`code` code that was running when the frame was captured. (optional)
+    - :attr:`last_i` last instruction of frame when the frame was captured  (optional).
+
+    If `code` and `last_i` are set, they are used in deparse to get a more exact location
+    information.
     """
 
     __slots__ = ('filename', 'lineno', 'name', '_line', 'locals', 'code', 'last_i')
@@ -385,7 +390,7 @@ class StackSummary(list):
 
     @classmethod
     def extract(klass, frame_gen, *, limit=None, lookup_lines=True,
-            capture_locals=False):
+                capture_locals=False, lasti=None):
         """Create a StackSummary from a traceback or stack object.
 
         :param frame_gen: A generator that yields (frame, lineno) tuples to
@@ -396,6 +401,7 @@ class StackSummary(list):
             otherwise lookup is deferred until the frame is rendered.
         :param capture_locals: If True, the local variables from each frame will
             be captured as object representations into the FrameSummary.
+        :param last_i: If set, last instruction executed
         """
         if limit is None:
             limit = getattr(sys, 'tracebacklimit', None)
@@ -421,10 +427,11 @@ class StackSummary(list):
                 f_locals = f.f_locals
             else:
                 f_locals = None
-            f_lasti = f.f_lasti if hasattr(f, 'f_lasti') else None
+            if lasti is None:
+                lasti = f.f_lasti if hasattr(f, 'f_lasti') else None
             result.append(FrameSummary(
                 filename, lineno, name, lookup_line=False, locals=f_locals,
-                code=co, last_i=f_lasti))
+                code=co, last_i=lasti))
         for filename in fnames:
             linecache.checkcache(filename)
         # If immediate lookup was desired, trigger lookups now.
@@ -523,6 +530,7 @@ class TracebackException:
       original exception.
     - :attr:`stack` A `StackSummary` representing the traceback.
     - :attr:`exc_type` The class of the original traceback.
+    - :attr:`exc_traceback` The original traceback
     - :attr:`filename` For syntax errors - the filename where the error
       occurred.
     - :attr:`lineno` For syntax errors - the linenumber where the error
@@ -577,7 +585,7 @@ class TracebackException:
         # TODO: locals.
         self.stack = StackSummary.extract(
             walk_tb(exc_traceback), limit=limit, lookup_lines=lookup_lines,
-            capture_locals=capture_locals)
+            capture_locals=capture_locals, lasti=exc_traceback.tb_lasti)
         self.exc_type = exc_type
         # Capture now to permit freeing resources: only complication is in the
         # unofficial API _format_final_exc_line
