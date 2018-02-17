@@ -12,9 +12,10 @@ copyright   = """
 Copyright (C) 2018 Rocky Bernstein <rb@dustyfeet.com>.
 """
 
-classifiers =  ['Development Status :: 5 - Production/Stable',
+classifiers =  ['Development Status :: 3 - Alpha',
                 'Intended Audience :: Developers',
                 'Operating System :: OS Independent',
+                'License :: OSI Approved :: Python Software Foundation License',
                 'Programming Language :: Python',
                 'Programming Language :: Python :: 3.3',
                 'Programming Language :: Python :: 3.4',
@@ -30,7 +31,7 @@ author             = "Rocky Bernstein"
 author_email       = "rb@dustyfeet.com"
 ftp_url            = None
 install_requires   = ['uncompyle6 >= 2.16.0', # need deparsed_find API
-                      'pyficache']
+                      ]
 
 license            = 'GPL-3.0'
 mailing_list       = 'python-debugger@googlegroups.com'

@@ -2,5 +2,8 @@
 /.cache
 /.pytest_cache
 /.python-version
+/ChangeLog
 /__pycache__
+/build
+/dist
 /loctraceback.egg-info

@@ -1,0 +1,6 @@
+1.0.0 2018-02-17
+
+First release to get this out there.
+
+It works fine, but could use improvement writing
+test cases. Backporting to 2.7 is left as an excercise to the reader.

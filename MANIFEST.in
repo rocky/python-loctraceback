@@ -1,0 +1,4 @@
+include Makefile
+include NEWS
+include ChangeLog
+include __pkginfo__.py

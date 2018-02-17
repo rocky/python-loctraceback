@@ -72,9 +72,9 @@ Isolating function in call stack example:
 This modules extends the Python 3.6 API traceback module by adding in
 fragment decomplation info for more precise location information.
 
-Although the API is from Python 3.6, the code runs on 3.3 or greater,
-and could be back-ported to earlier Python versions as well, should
-there be sufficient need, interest, or volunteers.
+Although the API is from Python 3.6, the code runs on 3.3 or greater.
+Back-porting to ther Python versions is left as an exercise to the
+reader.
 
 See `these slides <http://rocky.github.io/pycon2018.co>`_ for
 information on the technology behind this.
