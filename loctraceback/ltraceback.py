@@ -281,6 +281,9 @@ def clear_frames(tb):
     while tb is not None:
         try:
             tb.tb_frame.clear()
+        except AttributeError:
+            # Python 3.3 doesn't have tb_frame.clear()
+            pass
         except RuntimeError:
             # Ignore the exception raised if the frame is still executing.
             pass
@@ -381,7 +384,8 @@ def walk_tb(tb):
     walk_stack). Usually used with StackSummary.extract.
     """
     while tb is not None:
-        yield tb.tb_frame, tb.tb_lineno, tb.tb_lasti
+        lasti = tb.tb_lasti if hasattr(tb, 'tb_lasti') else None
+        yield tb.tb_frame, tb.tb_lineno, lasti
         tb = tb.tb_next
 
 
@@ -415,22 +419,25 @@ class StackSummary(list):
 
         result = klass()
         fnames = set()
-        for f, lineno, lasti in frame_gen:
-            co = f.f_code
-            filename = co.co_filename
-            name = co.co_name
+        try:
+            for f, lineno, lasti in frame_gen:
+                co = f.f_code
+                filename = co.co_filename
+                name = co.co_name
 
-            fnames.add(filename)
-            linecache.lazycache(filename, f.f_globals)
-            # Must defer line lookups until we have called checkcache.
-            if capture_locals:
-                f_locals = f.f_locals
-            else:
-                f_locals = None
+                fnames.add(filename)
+                linecache.lazycache(filename, f.f_globals)
+                # Must defer line lookups until we have called checkcache.
+                if capture_locals:
+                    f_locals = f.f_locals
+                else:
+                    f_locals = None
 
-            result.append(FrameSummary(
-                filename, lineno, name, lookup_line=False, locals=f_locals,
-                code=co, last_i=lasti))
+                result.append(FrameSummary(
+                    filename, lineno, name, lookup_line=False, locals=f_locals,
+                    code=co, last_i=lasti))
+        except:
+            from trepan.api import debug; debug()
         for filename in fnames:
             linecache.checkcache(filename)
         # If immediate lookup was desired, trigger lookups now.
