@@ -370,7 +370,7 @@ def walk_stack(f):
     if f is None:
         f = sys._getframe().f_back.f_back
     while f is not None:
-        yield f, f.f_lineno
+        yield f, f.f_lineno, f.f_lasti
         f = f.f_back
 
 
@@ -381,7 +381,7 @@ def walk_tb(tb):
     walk_stack). Usually used with StackSummary.extract.
     """
     while tb is not None:
-        yield tb.tb_frame, tb.tb_lineno
+        yield tb.tb_frame, tb.tb_lineno, tb.tb_lasti
         tb = tb.tb_next
 
 
@@ -415,7 +415,7 @@ class StackSummary(list):
 
         result = klass()
         fnames = set()
-        for f, lineno in frame_gen:
+        for f, lineno, lasti in frame_gen:
             co = f.f_code
             filename = co.co_filename
             name = co.co_name
@@ -428,7 +428,6 @@ class StackSummary(list):
             else:
                 f_locals = None
 
-            lasti = f.f_lasti if hasattr(f, 'f_lasti') else None
             result.append(FrameSummary(
                 filename, lineno, name, lookup_line=False, locals=f_locals,
                 code=co, last_i=lasti))
