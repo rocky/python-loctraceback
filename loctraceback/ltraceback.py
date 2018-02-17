@@ -427,8 +427,8 @@ class StackSummary(list):
                 f_locals = f.f_locals
             else:
                 f_locals = None
-            if lasti is None:
-                lasti = f.f_lasti if hasattr(f, 'f_lasti') else None
+
+            lasti = f.f_lasti if hasattr(f, 'f_lasti') else None
             result.append(FrameSummary(
                 filename, lineno, name, lookup_line=False, locals=f_locals,
                 code=co, last_i=lasti))
@@ -585,7 +585,7 @@ class TracebackException:
         # TODO: locals.
         self.stack = StackSummary.extract(
             walk_tb(exc_traceback), limit=limit, lookup_lines=lookup_lines,
-            capture_locals=capture_locals, lasti=exc_traceback.tb_lasti)
+            capture_locals=capture_locals)
         self.exc_type = exc_type
         # Capture now to permit freeing resources: only complication is in the
         # unofficial API _format_final_exc_line
