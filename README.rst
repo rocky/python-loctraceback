@@ -17,7 +17,7 @@ Some examples of the kinds of code this module can disambiguate:
    [e[0] for i in d[j] if got[i] == e[i]] # lots going on here
    exec(some_code % 10, namespace)        # code at runtime
 
-Some example output (which can be found by running code in `example`:
+Some example output given by running code in `example`:
 
 
 Division example:
