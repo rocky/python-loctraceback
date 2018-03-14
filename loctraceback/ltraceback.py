@@ -9,12 +9,10 @@ import tempfile
 from io import StringIO
 from hashlib import sha1
 from uncompyle6.semantics.fragments import (
-    deparse_code, deparse_code_around_offset,
+    code_deparse, deparse_code_around_offset,
     deparsed_find)
 from uncompyle6.semantics.linemap import (
     deparse_code_with_map)
-from xdis.magics import py_str2float
-from xdis import IS_PYPY
 import pyficache
 
 __all__ = ['extract_stack', 'extract_tb', 'format_exception',
@@ -24,15 +22,11 @@ __all__ = ['extract_stack', 'extract_tb', 'format_exception',
            'FrameSummary', 'StackSummary', 'TracebackException',
            'walk_stack', 'walk_tb']
 
-sys_version = sys.version[:5]
-float_version = py_str2float(sys_version)
-
 def deparse_and_cache(co):
    # co = proc_obj.curframe.f_code
     out = StringIO()
     try:
-        deparsed = deparse_code_with_map(float_version, co, out,
-                                         is_pypy=IS_PYPY)
+        deparsed = deparse_code_with_map(co, out)
     except:
         return None, None
 
@@ -62,10 +56,15 @@ def deparse_and_cache(co):
 def deparse_text(co, name, last_i):
     text = []
     try:
-       deparsed = deparse_code(float_version, co)
+       deparsed = code_deparse(co)
        nodeInfo = deparsed_find((name, last_i), deparsed, co)
        if not nodeInfo:
-           deparsed = deparse_code_around_offset(co.co_name, last_i, float_version, co)
+           # FIXME: change deparse_code_around_offset() so we
+           # don't need py_str2float
+           from xdis.magics import py_str2float
+           float_version = py_str2float()
+           deparsed = deparse_code_around_offset(co.co_name, last_i,
+                                                 float_version, co)
     except:
         return None
     if not nodeInfo:

@@ -30,7 +30,8 @@ classifiers =  ['Development Status :: 3 - Alpha',
 author             = "Rocky Bernstein"
 author_email       = "rb@dustyfeet.com"
 ftp_url            = None
-install_requires   = ['uncompyle6 >= 2.16.0', # need deparsed_find API
+install_requires   = ['uncompyle6 >= 3.0.1', # uses newer API
+                      'xdis >= 3.7.0, < 3.8.0',  # ditto
                       ]
 
 license            = 'GPL-3.0'
