@@ -1,3 +1,7 @@
+1.1.0 2018-03-18 Ides of March
+
+- Revise for uncompyle 3.0.0 - use simplifying API changes
+
 1.0.0 2018-02-17
 
 First release to get this out there.
