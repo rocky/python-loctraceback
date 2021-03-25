@@ -1,3 +1,5 @@
+|PyPI Installs| |Supported Python Versions|
+
 loctraceback
 ============
 
@@ -78,3 +80,7 @@ reader.
 
 See `these slides <http://rocky.github.io/pycon2018.co>`_ for
 information on the technology behind this.
+
+
+.. |PyPI Installs| image:: https://pepy.tech/badge/loctraceback
+.. |Supported Python Versions| image:: https://img.shields.io/pypi/pyversions/loctraceback.svg

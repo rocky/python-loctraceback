@@ -2,7 +2,7 @@
 **Table of Contents**
 
 - [Get latest sources:](#get-latest-sources)
-- [Change version in VERSION.py](#change-version-in-versionpy)
+- [Change version in version.py](#change-version-in-versionpy)
 - [Update ChangeLog:](#update-changelog)
 - [Update NEWS from ChangeLog. Then:](#update-news-from-changelog-then)
 - [Make sure pyenv is running and check newer versions](#make-sure-pyenv-is-running-and-check-newer-versions)
@@ -25,8 +25,8 @@
 
     $ emacs loctraceback/version.py
     $ source loctraceback/version.py
-    $ echo $VERSION
-    $ git commit -m"Get ready for release $VERSION" .
+    $ echo $__version__
+    $ git commit -m"Get ready for release $__version__" .
 
 
 # Update ChangeLog:
@@ -52,15 +52,15 @@
 # Make packages and tag
 
     $ . ./admin-tools/make-dist.sh
-    $ git tag release-$VERSION
+    $ git tag release-${__version__}
 
 # Upload single package and look at Rst Formating
 
-    $ twine upload dist/loctraceback-${VERSION}-py3.3.egg
+    $ twine upload dist/loctraceback-${__version__}-py3.3.egg
 
 # Upload rest of versions
 
-    $ twine upload dist/loctraceback-${VERSION}*
+    $ twine upload dist/loctraceback-${__version__}*
 
 # Push tags:
 

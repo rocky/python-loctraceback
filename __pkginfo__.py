@@ -1,4 +1,4 @@
-"""xdis packaging information"""
+"""python-loctraceback packaging information"""
 
 # To the extent possible we make this file look more like a
 # configuration file rather than code like setup.py. I find putting
@@ -22,6 +22,7 @@ classifiers =  ['Development Status :: 3 - Alpha',
                 'Programming Language :: Python :: 3.5',
                 'Programming Language :: Python :: 3.6',
                 'Programming Language :: Python :: 3.7',
+                'Programming Language :: Python :: 3.8',
                 'Topic :: Software Development :: Debuggers',
                 'Topic :: Software Development :: Libraries :: Python Modules',
                 ]
@@ -31,7 +32,7 @@ author             = "Rocky Bernstein"
 author_email       = "rb@dustyfeet.com"
 ftp_url            = None
 install_requires   = ['uncompyle6 >= 3.0.1', # uses newer API
-                      'xdis >= 3.7.0, < 3.8.0',  # ditto
+                      'xdis >= 5.0.0, < 5.1.0',  # ditto
                       ]
 
 license            = 'GPL-3.0'
@@ -54,6 +55,6 @@ srcdir = get_srcdir()
 def read(*rnames):
     return open(os.path.join(srcdir, *rnames)).read()
 
-# Get info from files; set: long_description and VERSION
+# Get info from files; set: long_description and __version__
 long_description   = ( read("README.rst") + '\n' )
 exec(read('loctraceback/version.py'))
