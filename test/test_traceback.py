@@ -5,11 +5,10 @@ from io import StringIO
 import linecache
 import sys
 import unittest
+import pytest
 import re
 from test import support
 from test.support import TESTFN, Error, captured_output, unlink, cpython_only
-from script_helper import assert_python_ok
-import textwrap
 
 import loctraceback as traceback
 
@@ -110,7 +109,7 @@ class TracebackCases(unittest.TestCase):
         # Test that tracebacks are correctly printed for encoded source files:
         # - correct line number (Issue2384)
         # - respect file encoding (Issue3975)
-        import tempfile, sys, subprocess, os
+        import sys, subprocess
 
         # The spawned subprocess has its stdout redirected to a PIPE, and its
         # encoding may be different from the current interpreter, on Windows
@@ -443,6 +442,8 @@ class TracebackFormatTests(unittest.TestCase):
     #         '    return traceback.format_stack()\n' % (__file__, lineno+1),
     #     ])
 
+    # FIXME: INVESTIGATE
+    @pytest.mark.skip(reason="no way of currently testing this")
     @cpython_only
     def test_unhashable(self):
         from _testcapi import exception_print
