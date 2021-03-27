@@ -51,11 +51,11 @@
 
 # Check packages
 
-	$ twine check dist/trepan3k-$__version__*
+	$ twine check dist/loctraceback-$__version__*
 
 # Release on github
 
-Goto https://github.com/rocky/python3-trepan/releases/new
+Goto https://github.com/rocky/python-loctraceback/releases/new
 
 Set version, copy in `NEWS.md` item, upload binaries.
 
@@ -65,9 +65,8 @@ Todo: turn this into a script in `admin-tools`
 
 	$ mkdir /tmp/gittest; pushd /tmp/gittest
 	$ pyenv local 3.7.5  # or some other non-current version
-	$ pip install -e git://github.com/rocky/python3-trepan.git@$__version__#egg=trepan3k
-	$ trepan3k trepan3k
-	$ pip uninstall trepan3k
+	$ pip install -e git://github.com/rocky/python-loctraceback.git@$__version__#egg=loctraceback
+	$ pip uninstall kloctracebacktrepan
 	$ popd
 
 # Upload rest of versions
@@ -76,7 +75,7 @@ Todo: turn this into a script in `admin-tools`
 
 # Push tags:
 
-    $ git push --tags
+    $ git pull --tags
 
 # Check on a VM
 
