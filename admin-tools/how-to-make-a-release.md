@@ -43,20 +43,32 @@
 
 # Make sure pyenv is running and check newer versions
 
-    $ pyenv local && source admin-tools/check-versions.sh
+    $ admin-tools/check-versions.sh
 
-# Update NEWS from master branch
+# Make packages
 
-    $ git commit -m"Get ready for release $VERSION" .
+    $ ./admin-tools/make-dist.sh
 
-# Make packages and tag
+# Check packages
 
-    $ . ./admin-tools/make-dist.sh
-    $ git tag release-${__version__}
+	$ twine check dist/trepan3k-$__version__*
 
-# Upload single package and look at Rst Formating
+# Release on github
 
-    $ twine upload dist/loctraceback-${__version__}-py3.3.egg
+Goto https://github.com/rocky/python3-trepan/releases/new
+
+Set version, copy in `NEWS.md` item, upload binaries.
+
+Now check the *tagged* release. (Checking the untagged release was previously done).
+
+Todo: turn this into a script in `admin-tools`
+
+	$ mkdir /tmp/gittest; pushd /tmp/gittest
+	$ pyenv local 3.7.5  # or some other non-current version
+	$ pip install -e git://github.com/rocky/python3-trepan.git@$__version__#egg=trepan3k
+	$ trepan3k trepan3k
+	$ pip uninstall trepan3k
+	$ popd
 
 # Upload rest of versions
 

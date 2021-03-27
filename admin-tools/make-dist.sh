@@ -15,7 +15,7 @@ if ! source ./pyenv-versions ; then
 fi
 
 cd ..
-source VERSION.py
+source ${PACKAGE}/version.py
 echo $__version__
 
 for pyversion in $PYVERSIONS; do

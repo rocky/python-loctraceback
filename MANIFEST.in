@@ -1,4 +1,4 @@
 include Makefile
-include NEWS
+include NEWS.md
 include ChangeLog
 include __pkginfo__.py
