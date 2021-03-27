@@ -84,4 +84,4 @@ information on the technology behind this.
 
 .. |PyPI Installs| image:: https://pepy.tech/badge/loctraceback
 .. |Supported Python Versions| image:: https://img.shields.io/pypi/pyversions/loctraceback.svg
-.. |CI status| image:: https://github.com/rocky/loctraceback/workflows/loctracback%20(ubuntu)/badge.svg
+.. |CI status| image:: https://github.com/rocky/python-loctraceback/workflows/loctraceback%20(ubuntu)/badge.svg
