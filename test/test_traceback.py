@@ -9,6 +9,7 @@ import pytest
 import re
 from test import support
 from test.support import TESTFN, Error, captured_output, unlink, cpython_only
+from xdis import PYTHON_VERSION
 
 import loctraceback as traceback
 
@@ -265,11 +266,12 @@ class TracebackFormatTests(unittest.TestCase):
     def test_traceback_format(self):
         self.check_traceback_format()
 
-    def test_traceback_format_with_cleared_frames(self):
-        # Check that traceback formatting also works with a clear()ed frame
-        def cleanup_tb(tb):
-            tb.tb_frame.clear()
-        self.check_traceback_format(cleanup_tb)
+    if PYTHON_VERSION >= 3.4:
+        def test_traceback_format_with_cleared_frames(self):
+            # Check that traceback formatting also works with a clear()ed frame
+            def cleanup_tb(tb):
+                tb.tb_frame.clear()
+            self.check_traceback_format(cleanup_tb)
 
     def test_stack_format(self):
         # Verify _stack functions. Note we have to use _getframe(1) to
@@ -799,11 +801,12 @@ class MiscTracebackCases(unittest.TestCase):
         inner_frame = tb.tb_next.tb_next.tb_next.tb_frame
         self.assertEqual(len(inner_frame.f_locals), 1)
 
-        # Clear traceback frames
-        traceback.clear_frames(tb)
+        if PYTHON_VERSION >= 3.4:
+            # Clear traceback frames
+            traceback.clear_frames(tb)
 
-        # Local variable dict should now be empty.
-        self.assertEqual(len(inner_frame.f_locals), 0)
+            # Local variable dict should now be empty.
+            self.assertEqual(len(inner_frame.f_locals), 0)
 
     def test_extract_stack(self):
         def extract():

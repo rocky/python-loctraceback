@@ -25,9 +25,7 @@ check:
 #: Clean up temporary files and .pyc files
 clean: clean_pyc
 	$(PYTHON) ./setup.py $@
-	find . -name __pycache__ -exec rm -fr {} || true \;
-	(cd test && $(MAKE) clean)
-	(cd test_unit && $(MAKE) clean)
+	find . -name __pycache__ -exec rm -fr \{} \; || true \;
 
 #: Create source (tarball) and wheel distribution
 dist: clean
@@ -35,7 +33,7 @@ dist: clean
 
 #: Remove .pyc files
 clean_pyc:
-	( cd xdis && $(RM) -f *.pyc */*.pyc )
+	( cd loctraceback && $(RM) -f *.pyc */*.pyc )
 
 #: Create source tarball
 sdist:
