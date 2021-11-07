@@ -9,7 +9,7 @@ import pytest
 import re
 from test import support
 from test.support import TESTFN, Error, captured_output, unlink, cpython_only
-from xdis import PYTHON_VERSION
+from xdis.version_info import PYTHON_VERSION_TRIPLE
 
 import loctraceback as traceback
 
@@ -266,7 +266,7 @@ class TracebackFormatTests(unittest.TestCase):
     def test_traceback_format(self):
         self.check_traceback_format()
 
-    if PYTHON_VERSION >= 3.4:
+    if PYTHON_VERSION_TRIPLE >= (3, 4):
         def test_traceback_format_with_cleared_frames(self):
             # Check that traceback formatting also works with a clear()ed frame
             def cleanup_tb(tb):
@@ -801,7 +801,7 @@ class MiscTracebackCases(unittest.TestCase):
         inner_frame = tb.tb_next.tb_next.tb_next.tb_frame
         self.assertEqual(len(inner_frame.f_locals), 1)
 
-        if PYTHON_VERSION >= 3.4:
+        if PYTHON_VERSION_TRIPLE >= (3, 4):
             # Clear traceback frames
             traceback.clear_frames(tb)
 
