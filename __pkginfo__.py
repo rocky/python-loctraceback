@@ -7,6 +7,8 @@
 # less elegant than having it here with reduced code, albeit there
 # still is some room for improvement.
 
+import os.path
+
 # Things that change more often go here.
 copyright = """
 Copyright (C) 2018 Rocky Bernstein <rb@dustyfeet.com>.
@@ -34,7 +36,7 @@ author_email = "rb@dustyfeet.com"
 ftp_url = None
 install_requires = [
     "uncompyle6 >= 3.0.1",  # uses newer API
-    "xdis >= 6.0.3, < 6.2.0",  # ditto
+    "xdis > 6.2",  # ditto
     "pyficache >= 2.2.1",
 ]
 
@@ -47,8 +49,6 @@ web = "https://github.com/rocky/python-loctraceback/"
 
 # tracebacks in zip files are funky and not debuggable
 zip_safe = True
-
-import os.path
 
 
 def get_srcdir():

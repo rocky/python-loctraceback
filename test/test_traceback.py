@@ -501,7 +501,7 @@ class BaseExceptionReportingTests:
 
     def check_zero_div(self, msg):
         lines = msg.splitlines()
-        lines = [l for l in lines if not re.match('^\s*-+\s*$', l)]
+        lines = [line for line in lines if not re.match(r'^\s*-+\s*$', line)]
         self.assertTrue(lines[1].startswith('  File'))
         # Could be -3 or or -4
         # self.assertIn('1/0 # In zero_div', lines[-3])

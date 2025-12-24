@@ -6,7 +6,7 @@ loctraceback
 Want to see more precisely where you are or were at in a traceback or
 callstack your Python code has several places in a line it could have
 errored? Even if the code was something created at runtime with say
-`eval` or `exec` or if there was no source code that can be found?
+``eval`` or ``exec`` or if there was no source code that can be found?
 
 Then this package is for you.
 
@@ -19,7 +19,7 @@ Some examples of the kinds of code this module can disambiguate:
    [e[0] for i in d[j] if got[i] == e[i]] # lots going on here
    exec(some_code % 10, namespace)        # code at runtime
 
-Some example output given by running code in `example`:
+Some example output given by running code in ``example``:
 
 
 Division example:
