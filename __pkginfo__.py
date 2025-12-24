@@ -38,6 +38,7 @@ install_requires = [
     "uncompyle6 >= 3.0.1",  # uses newer API
     "xdis >= 6.1.8",  # ditto
     "pyficache >= 2.2.1",
+    "pygments",
 ]
 
 license = "GPL-3.0"
