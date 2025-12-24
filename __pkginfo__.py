@@ -36,7 +36,7 @@ author_email = "rb@dustyfeet.com"
 ftp_url = None
 install_requires = [
     "uncompyle6 >= 3.0.1",  # uses newer API
-    "xdis > 6.2",  # ditto
+    "xdis >= 6.1.8",  # ditto
     "pyficache >= 2.2.1",
 ]
 
